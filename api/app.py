@@ -23,6 +23,10 @@ def create_app(config_cls=Config):
     db.init_app(app)
     migrate.init_app(app, db)
 
+    # blueprints
+    from api.errors import blueprint as error_bp
+    app.register_blueprint(error_bp)
+
     @app.route("/")
     def index():
         return "<p>Hello, World!</p>"

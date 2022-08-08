@@ -1,44 +1,45 @@
-import sqlalchemy as sqla
+import sqlalchemy as sa
 
 from api import db
 
 
-class NewTaipeiCity(db.Model):
-    __tablename__ = "new_taipei_city"
+class Deal(db.Model):
+    __tablename__ = "deals"
 
-    id = sqla.Column(sqla.BigInteger, primary_key=True)
+    id = sa.Column(sa.BigInteger, primary_key=True)
 
     # info
-    district = sqla.Column(sqla.String(8), nullable=False, index=True)
-    object_of_transaction = sqla.Column(sqla.String(16), nullable=False)
-    location = sqla.Column(sqla.String(128), nullable=False)
-    transaction_date = sqla.Column(sqla.DATE, nullable=False, index=True)
-    level = sqla.Column(sqla.String(8), nullable=False)
-    total_floor_numbers = sqla.Column(sqla.String(2), nullable=False)
-    building_state = sqla.Column(sqla.String(16), nullable=False)
-    main_use = sqla.Column(sqla.String(16), nullable=False)
+    city = sa.Column(sa.String(3), nullable=False, index=True)
+    district = sa.Column(sa.String(8), nullable=False, index=True)
+    # object_of_transaction = sa.Column(sa.String(16), nullable=False)
+    # location = sa.Column(sa.String(128), nullable=False)
+    # transaction_date = sa.Column(sa.DATE, nullable=False, index=True)
+    # level = sa.Column(sa.String(8), nullable=False)
+    # total_floor_numbers = sa.Column(sa.String(2), nullable=False)
+    # building_state = sa.Column(sa.String(16), nullable=False)
+    # main_use = sa.Column(sa.String(16), nullable=False)
 
-    # area, room and buildings name
-    land_total_area = sqla.Column(sqla.Float, nullable=False)
-    building_total_area = sqla.Column(sqla.Float, nullable=False)
-    room = sqla.Column(sqla.String(1), nullable=False)
-    restaurant_and_living_room = sqla.Column(sqla.String(1), nullable=False)
-    bathroom = sqla.Column(sqla.String(1), nullable=False)
-    build_name = sqla.Column(sqla.String(32), nullable=False, index=True)
-    buildings = sqla.Column(sqla.String(32), nullable=False)
+    # # area, room and buildings name
+    # land_total_area = sa.Column(sa.Float, nullable=False)
+    # building_total_area = sa.Column(sa.Float, nullable=False)
+    # room = sa.Column(sa.String(1), nullable=False)
+    # restaurant_and_living_room = sa.Column(sa.String(1), nullable=False)
+    # bathroom = sa.Column(sa.String(1), nullable=False)
+    # build_name = sa.Column(sa.String(32), nullable=False, index=True)
+    # buildings = sa.Column(sa.String(32), nullable=False)
 
-    # car
-    parking_sapce_type = sqla.Column(sqla.String(8), nullable=False)
-    parking_sapce_total_area = sqla.Column(sqla.Float, nullable=False)
-    parking_sapce_price = sqla.Column(sqla.Integer, nullable=False)
+    # # car
+    # parking_sapce_type = sa.Column(sa.String(8), nullable=False)
+    # parking_sapce_total_area = sa.Column(sa.Float, nullable=False)
+    # parking_sapce_price = sa.Column(sa.Integer, nullable=False)
 
-    # price
-    price = sqla.Column(sqla.Integer, nullable=False)
-    unit_price = sqla.Column(sqla.Integer, nullable=False)
+    # # price
+    # price = sa.Column(sa.Integer, nullable=False)
+    # unit_price = sa.Column(sa.Integer, nullable=False)
 
-    note = sqla.Column(sqla.String(128), nullable=False)
+    # note = sa.Column(sa.String(128), nullable=False)
 
-    created_at = sqla.Column(sqla.DateTime(timezone=True),
-                             server_default=sqla.func.now())
-    updated_at = sqla.Column(sqla.DateTime(timezone=True),
-                             server_default=sqla.func.now(), onupdate=sqla.func.now())
+    created_at = sa.Column(sa.DateTime(timezone=True),
+                           server_default=sa.func.now())
+    updated_at = sa.Column(sa.DateTime(timezone=True),
+                           server_default=sa.func.now(), onupdate=sa.func.now())

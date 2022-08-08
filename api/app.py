@@ -27,6 +27,9 @@ def create_app(config_cls=Config):
     from api.errors import blueprint as error_bp
     app.register_blueprint(error_bp)
 
+    from api.deals import blueprint as deal_bp
+    app.register_blueprint(deal_bp, url_prefix="/api")
+
     @app.route("/")
     def index():
         return "<p>Hello, World!</p>"

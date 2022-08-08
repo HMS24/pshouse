@@ -78,5 +78,7 @@ ENV/
 
 # myself
 *.pylintrc
+.pep8
+*.db
 temp/
 debug.log

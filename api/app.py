@@ -1,4 +1,12 @@
+import logging
+
 from flask import Flask
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)10.19s [%(levelname)s] %(message)s",
+    handlers=[logging.FileHandler("debug.log"), logging.StreamHandler()],
+)
 
 
 def create_app():

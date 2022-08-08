@@ -19,6 +19,7 @@ def create_app(config_cls=Config):
     app = Flask(__name__)
     app.config.from_object(config_cls)
 
+    from api import models
     db.init_app(app)
     migrate.init_app(app, db)
 

@@ -1,8 +1,9 @@
 import logging
 
 from flask import Flask
-from alchemical.flask import Alchemical
 from flask_migrate import Migrate
+from flask_marshmallow import Marshmallow
+from alchemical.flask import Alchemical
 from config import Config
 
 logging.basicConfig(
@@ -13,6 +14,7 @@ logging.basicConfig(
 
 db = Alchemical()
 migrate = Migrate()
+ma = Marshmallow()
 
 
 def create_app(config_cls=Config):
@@ -22,6 +24,7 @@ def create_app(config_cls=Config):
     from api import models
     db.init_app(app)
     migrate.init_app(app, db)
+    ma.init_app(app)
 
     # blueprints
     from api.errors import blueprint as error_bp

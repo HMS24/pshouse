@@ -7,6 +7,6 @@ blueprint = Blueprint("errors", __name__)
 def unexpected(e):
     return {
         "code": 500,
-        "message": repr(e),
-        "description": "非預期錯誤"
+        "message": str(e),
+        "description": "非預期錯誤",
     }, 500

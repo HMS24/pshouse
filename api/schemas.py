@@ -13,5 +13,9 @@ class DealSchema(ma.SQLAlchemySchema):
     updated_at = ma.DateTime()
 
 
-class NestedDealSchema(ma.SQLAlchemySchema):
+class DealRespSchema(ma.SQLAlchemySchema):
+    data = ma.Nested(DealSchema)
+
+
+class ListedDealRespSchema(ma.SQLAlchemySchema):
     data = ma.List(ma.Nested(DealSchema))

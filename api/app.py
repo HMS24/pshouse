@@ -1,7 +1,7 @@
 import logging
 
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from alchemical.flask import Alchemical
 from flask_migrate import Migrate
 from config import Config
 
@@ -11,7 +11,7 @@ logging.basicConfig(
     handlers=[logging.FileHandler("debug.log"), logging.StreamHandler()],
 )
 
-db = SQLAlchemy()
+db = Alchemical()
 migrate = Migrate()
 
 

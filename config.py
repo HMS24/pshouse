@@ -6,7 +6,4 @@ load_dotenv(os.path.join(basedir, ".env"))
 
 
 class Config(object):
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(basedir, "app.db")
-
-    # suppress FSADeprecationWarning
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    ALCHEMICAL_DATABASE_URL = os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(basedir, "app.db")

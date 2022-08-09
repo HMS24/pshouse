@@ -1,4 +1,6 @@
 from flask import Blueprint, jsonify
+
+from api import db
 from api.models import Deal
 
 blueprint = Blueprint("deals", __name__)
@@ -7,6 +9,7 @@ blueprint = Blueprint("deals", __name__)
 @blueprint.route("/deals", methods=["GET"])
 def all():
     """Retrieve all deals"""
-    results = [d.to_dict() for d in Deal.query.all()]
+    with db.Session() as session:
+        deals = session.scalars(Deal.select()).all()
 
-    return jsonify(results)
+    return jsonify([d.to_dict() for d in deals])

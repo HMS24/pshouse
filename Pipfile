@@ -8,6 +8,8 @@ flask = "==2.0.3"
 python-dotenv = "*"
 flask-migrate = "==3.0.1"
 pymysql = "==1.0.2"
+alchemical = "==0.5.1"
+apifairy = "==1.0.0"
 
 [dev-packages]
 autopep8 = "*"

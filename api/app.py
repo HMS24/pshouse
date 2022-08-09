@@ -2,8 +2,8 @@ import logging
 
 from flask import Flask
 from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from alchemical.flask import Alchemical
 from config import Config
 
 logging.basicConfig(
@@ -12,7 +12,7 @@ logging.basicConfig(
     handlers=[logging.FileHandler("debug.log"), logging.StreamHandler()],
 )
 
-db = Alchemical()
+db = SQLAlchemy()
 migrate = Migrate()
 ma = Marshmallow()
 

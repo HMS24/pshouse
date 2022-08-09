@@ -43,13 +43,3 @@ class Deal(db.Model):
                            server_default=sa.func.now())
     updated_at = sa.Column(sa.DateTime(timezone=True),
                            server_default=sa.func.now(), onupdate=sa.func.now())
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "city": self.city,
-            "district": self.district,
-            "created_at": str(self.created_at),
-            "updated_at": str(self.updated_at),
-        }
-        

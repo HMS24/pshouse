@@ -10,4 +10,5 @@ class Config(object):
 
     # suppress FSADeprecationWarning
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ECHO = True
     

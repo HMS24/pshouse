@@ -32,7 +32,7 @@ def response(schema, status_code=200):
     return decorator
 
 
-def query_string(schema, location="querystring", **kwargs):
+def querystring(schema, location="querystring", **kwargs):
     def decorator(f):
         return use_args(schema, location=location, **kwargs)(f)
 

@@ -6,7 +6,7 @@ from api.schemas import (
     ListedDealRespSchema,
     DealSchema,
 )
-from api.decorators import response, query_string
+from api.decorators import response, querystring
 
 blueprint = Blueprint("deals", __name__)
 listed_deal_resp_schema = ListedDealRespSchema()
@@ -15,7 +15,7 @@ deal_scema = DealSchema()
 
 
 @blueprint.route("/deals", methods=["GET"])
-@query_string(deal_scema)
+@querystring(deal_scema)
 @response(listed_deal_resp_schema)
 def all(args):
     """Retrieve all deals"""

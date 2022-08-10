@@ -7,8 +7,8 @@ class DealSchema(ma.SQLAlchemySchema):
         model = Deal
 
     id = ma.auto_field()
-    city = ma.String()
-    district = ma.String()
+    city = ma.String(required=True)
+    district = ma.String(required=True)
     created_at = ma.DateTime()
     updated_at = ma.DateTime()
 

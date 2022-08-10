@@ -19,7 +19,10 @@ deal_scema = DealSchema()
 @response(listed_deal_resp_schema)
 def all(args):
     """Retrieve all deals"""
-    return Deal.query.all()
+    city = args["city"]
+    district = args["district"]
+
+    return Deal.query.filter_by(city=city, district=district).limit(3).offset(2).all()
 
 
 @blueprint.route("/deals/<int:id>", methods=["GET"])

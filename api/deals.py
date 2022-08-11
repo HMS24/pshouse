@@ -21,8 +21,17 @@ def all(args):
     """Retrieve all deals"""
     city = args["city"]
     district = args["district"]
+    from_ = args["from_date"]
+    to_ = args["to_date"]
 
-    return Deal.query.filter_by(city=city, district=district).limit(3).offset(2).all()
+    return (Deal
+            .query
+            .filter_by(city=city, district=district)
+            .filter(Deal.created_at.between(from_, to_))
+            .order_by(Deal.created_at.desc())
+            .offset(1)
+            .limit(5)
+            .all())
 
 
 @blueprint.route("/deals/<int:id>", methods=["GET"])

@@ -8,6 +8,9 @@ from api.schemas import (
 )
 from api.decorators import response, querystring
 
+DEFAULT_OFFSET = 0
+DEFAULT_LIMIT = 30
+
 blueprint = Blueprint("deals", __name__)
 listed_deal_resp_schema = ListedDealRespSchema()
 deal_resp_schema = DealRespSchema()
@@ -19,19 +22,36 @@ deal_scema = DealSchema()
 @response(listed_deal_resp_schema)
 def all(args):
     """Retrieve all deals"""
-    city = args["city"]
-    district = args["district"]
-    from_ = args["from_date"]
-    to_ = args["to_date"]
+    city = args.get("city", None)
+    district = args.get("district", None)
+    from_ = args.get("from_date", None)
+    to_ = args.get("to_date", None)
+    sort_by = args.get("sort_by", "created_at")
+    sort_rule = args.get("sort_rule", "asc")
+    offset = args.get("offset", DEFAULT_OFFSET)
+    limit = args.get("limit", DEFAULT_LIMIT)
 
-    return (Deal
-            .query
-            .filter_by(city=city, district=district)
-            .filter(Deal.created_at.between(from_, to_))
-            .order_by(Deal.created_at.desc())
-            .offset(1)
-            .limit(5)
-            .all())
+    where_condition = (
+        Deal.city == city,
+        Deal.district == district,
+        Deal.created_at.between(from_, to_)
+    )
+
+    sort_by = getattr(Deal, sort_by)
+    order_condition = sort_by.desc() if sort_rule == "desc" else sort_by.asc()
+
+    try:
+        deals = (Deal
+                 .query
+                 .filter(*where_condition)
+                 .order_by(order_condition)
+                 .offset(offset)
+                 .limit(limit)
+                 .all())
+    except Exception:
+        abort(500)
+    else:
+        return deals
 
 
 @blueprint.route("/deals/<int:id>", methods=["GET"])

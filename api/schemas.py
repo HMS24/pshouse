@@ -4,6 +4,7 @@ from api import ma
 from api.models import Deal
 from api.utils import generate_inteveral_date_before
 
+
 class DealSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Deal
@@ -16,8 +17,10 @@ class DealSchema(ma.SQLAlchemySchema):
 
     from_timestamp = ma.Integer()
     to_timestamp = ma.Integer()
-    from_date = ma.DateTime()
-    to_date = ma.DateTime()
+    sort_by = ma.String()
+    sort_rule = ma.String()
+    offset = ma.Integer()
+    limit = ma.Integer()
 
     @post_load
     def set_default_query_date_if_not_exists(self, data, **kwargs):
@@ -30,6 +33,7 @@ class DealSchema(ma.SQLAlchemySchema):
         data["to_date"] = datetime.fromtimestamp(to_timestamp)
 
         return data
+
 
 class DealRespSchema(ma.Schema):
     data = ma.Nested(DealSchema)

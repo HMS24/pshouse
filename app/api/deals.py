@@ -52,8 +52,8 @@ def all(args):
                 .order_by(order_condition)
                 .paginate(**page_condition)
         )
-    except Exception:
-        abort(500)
+    except Exception as e:
+        abort(500, repr(e))
     else:
         return deals.items
 

@@ -1,33 +1,28 @@
-from werkzeug.exceptions import HTTPException
+from flask import jsonify
+from werkzeug.http import HTTP_STATUS_CODES
 
 from app.api import api
 from app.exceptions import ValidationError
 
 
-@api.app_errorhandler(HTTPException)
-def http_error(e):
-    return {
-        "code": e.code,
-        "message": e.name,
-        "description": e.description,
-    }, e.code
+def error_response(status_code, message=None):
+    payload = {
+        "error": HTTP_STATUS_CODES.get(status_code, "Unknown error"),
+    }
+
+    if message:
+        payload["message"] = message
+
+    response = jsonify(payload)
+    response.status_code = status_code
+
+    return response
+
+
+def bad_request(message):
+    return error_response(400, message)
 
 
 @api.app_errorhandler(ValidationError)
 def validation_error(e):
-    print("--------------------------- 2")
-    return {
-        "code": e.status_code,
-        "message": "Validation Error",
-        "description": "Some errors found below when parsing",
-        "errors": e.messages
-    }, e.status_code
-
-
-@api.app_errorhandler(Exception)
-def unexpected(e):
-    return {
-        "code": 500,
-        "message": str(e),
-        "description": "非預期錯誤",
-    }, 500
+    return bad_request(e.messages)

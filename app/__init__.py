@@ -26,8 +26,11 @@ def create_app(config_cls=Config):
     ma.init_app(app)
 
     # blueprints
-    from app.main import main as main_blue_print
-    app.register_blueprint(main_blue_print)
+    from app.errors import errors as errors_blueprint
+    app.register_blueprint(errors_blueprint)
+
+    from app.main import main as main_blueprint
+    app.register_blueprint(main_blueprint)
 
     from app.api import api as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix="/api/v1")

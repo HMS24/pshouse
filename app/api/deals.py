@@ -31,7 +31,7 @@ def all(args):
     from_ = args.get("from_date", None)
     to_ = args.get("to_date", None)
     sort_by = args.get("sort_by", "created_at")
-    sort_rule = args.get("sort_rule", "asc")
+    sort_rule = args.get("sort_rule", "desc")
     page = args.get("page", DEFAULT_DEALS_PAGE)
 
     where_condition = (
@@ -40,8 +40,8 @@ def all(args):
         Deal.created_at.between(from_, to_),
     )
 
-    sort_by = getattr(Deal, sort_by)
-    order_condition = sort_by.desc() if sort_rule == "desc" else sort_by.asc()
+    _sort_by = getattr(Deal, sort_by)
+    order_condition = _sort_by.desc() if sort_rule == "desc" else _sort_by.asc()
 
     page_condition = {
         "page": page,
@@ -62,6 +62,8 @@ def all(args):
             "district": district,
             "from_date": from_,
             "to_date": to_,
+            "sort_by": sort_by,
+            "sort_rule": sort_rule,
         }
 
         prev = url_for("api.all", **_args, page=page-1) if pagination.has_prev else None

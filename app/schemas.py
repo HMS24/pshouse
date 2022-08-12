@@ -20,11 +20,17 @@ class DealSchema(ma.SQLAlchemySchema):
     to_timestamp = ma.Integer()
     sort_by = ma.String()
     sort_rule = ma.String()
-    offset = ma.Integer()
-    limit = ma.Integer()
+    page = ma.Integer()
+
+    # prev and next url will have `from_date` and `to_date`
+    from_date = ma.DateTime()
+    to_date = ma.DateTime()
 
     @post_load
     def set_default_query_date_if_not_exists(self, data, **kwargs):
+        if "from_date" in data or "to_date" in data:
+            return data
+
         (default_from, default_to) = generate_inteveral_date_before(datetime.now())
 
         from_timestamp = data.get("from_timestamp", default_from)
@@ -37,8 +43,14 @@ class DealSchema(ma.SQLAlchemySchema):
 
 
 class DealRespSchema(ma.Schema):
-    data = ma.Nested(DealSchema)
+    result = ma.Nested(DealSchema)
 
+class PageSchema(ma.Schema):
+    data = ma.List(ma.Nested(DealSchema))
+    prev = ma.String(dump_only=True)
+    next = ma.String(dump_only=True)
+    count = ma.Integer(dump_only=True)
+    total = ma.Integer(dump_only=True)
 
 class ListedDealRespSchema(ma.Schema):
-    data = ma.List(ma.Nested(DealSchema))
+    result = ma.Nested(PageSchema)

@@ -1,4 +1,8 @@
-from flask import abort, current_app
+from flask import (
+    abort,
+    current_app,
+    url_for,
+)
 
 from app.api import api
 from app.models import Deal
@@ -46,16 +50,33 @@ def all(args):
     }
 
     try:
-        deals = (
+        pagination = (
             Deal.query
                 .filter(*where_condition)
                 .order_by(order_condition)
                 .paginate(**page_condition)
         )
+
+        _args = {
+            "city": city,
+            "district": district,
+            "from_date": from_,
+            "to_date": to_,
+        }
+
+        prev = url_for("api.all", **_args, page=page-1) if pagination.has_prev else None
+        next = url_for("api.all", **_args, page=page+1) if pagination.has_next else None
+
     except Exception as e:
         abort(500, repr(e))
     else:
-        return deals.items
+        return {
+            "data": pagination.items,
+            "count": len(pagination.items),
+            "total": pagination.total,
+            "prev": prev,
+            "next": next,
+        }
 
 
 @api.route("/deals/<int:id>", methods=["GET"])

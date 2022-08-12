@@ -1,23 +1,23 @@
-from flask import Blueprint, abort
+from flask import abort
 
-from api.models import Deal
-from api.schemas import (
+from app.api import api
+from app.models import Deal
+from app.schemas import (
     DealRespSchema,
     ListedDealRespSchema,
     DealSchema,
 )
-from api.decorators import response, querystring
+from app.api.decorators import response, querystring
 
 DEFAULT_OFFSET = 0
 DEFAULT_LIMIT = 30
 
-blueprint = Blueprint("deals", __name__)
 listed_deal_resp_schema = ListedDealRespSchema()
 deal_resp_schema = DealRespSchema()
 deal_scema = DealSchema()
 
 
-@blueprint.route("/deals", methods=["GET"])
+@api.route("/deals", methods=["GET"])
 @querystring(deal_scema)
 @response(listed_deal_resp_schema)
 def all(args):
@@ -54,7 +54,7 @@ def all(args):
         return deals
 
 
-@blueprint.route("/deals/<int:id>", methods=["GET"])
+@api.route("/deals/<int:id>", methods=["GET"])
 @response(deal_resp_schema)
 def get(id):
     """Retrieve a deal by id"""

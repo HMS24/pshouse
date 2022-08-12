@@ -1,16 +1,10 @@
-from flask import Blueprint
 from werkzeug.exceptions import HTTPException
 
-blueprint = Blueprint("errors", __name__)
+from app.api import api
+from app.exceptions import ValidationError
 
 
-class ValidationError(Exception):
-    def __init__(self, status_code, messages):
-        self.status_code = status_code
-        self.messages = messages
-
-
-@blueprint.app_errorhandler(HTTPException)
+@api.app_errorhandler(HTTPException)
 def http_error(e):
     return {
         "code": e.code,
@@ -19,8 +13,9 @@ def http_error(e):
     }, e.code
 
 
-@blueprint.app_errorhandler(ValidationError)
+@api.app_errorhandler(ValidationError)
 def validation_error(e):
+    print("--------------------------- 2")
     return {
         "code": e.status_code,
         "message": "Validation Error",
@@ -29,7 +24,7 @@ def validation_error(e):
     }, e.status_code
 
 
-@blueprint.app_errorhandler(Exception)
+@api.app_errorhandler(Exception)
 def unexpected(e):
     return {
         "code": 500,

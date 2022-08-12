@@ -1,8 +1,9 @@
 from datetime import datetime
 from marshmallow import post_load
-from api import ma
-from api.models import Deal
-from api.utils import generate_inteveral_date_before
+
+from app import ma
+from app.models import Deal
+from app.utils import generate_inteveral_date_before
 
 
 class DealSchema(ma.SQLAlchemySchema):

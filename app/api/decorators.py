@@ -1,7 +1,7 @@
 from functools import wraps
 
 from webargs.flaskparser import FlaskParser as BaseFlaskParser
-from api.errors import ValidationError
+from app.exceptions import ValidationError
 
 
 class FlaskParser(BaseFlaskParser):

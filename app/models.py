@@ -1,6 +1,6 @@
 import sqlalchemy as sa
 
-from api import db
+from app import db
 
 
 class Deal(db.Model):

@@ -21,20 +21,15 @@ def create_app(config_cls=Config):
     app = Flask(__name__)
     app.config.from_object(config_cls)
 
-    from api import models
     db.init_app(app)
     migrate.init_app(app, db)
     ma.init_app(app)
 
     # blueprints
-    from api.errors import blueprint as error_bp
-    app.register_blueprint(error_bp)
+    from app.main import main as main_blue_print
+    app.register_blueprint(main_blue_print)
 
-    from api.deals import blueprint as deal_bp
-    app.register_blueprint(deal_bp, url_prefix="/api")
-
-    @app.route("/")
-    def index():
-        return "<p>Hello, World!</p>"
+    from app.api import api as api_blueprint
+    app.register_blueprint(api_blueprint, url_prefix="/api/v1")
 
     return app

@@ -1,4 +1,4 @@
-from flask import abort
+from flask import abort, current_app
 
 from app.api import api
 from app.models import Deal
@@ -8,9 +8,6 @@ from app.schemas import (
     DealSchema,
 )
 from app.api.decorators import response, querystring
-
-DEFAULT_OFFSET = 0
-DEFAULT_LIMIT = 30
 
 listed_deal_resp_schema = ListedDealRespSchema()
 deal_resp_schema = DealRespSchema()
@@ -22,36 +19,43 @@ deal_scema = DealSchema()
 @response(listed_deal_resp_schema)
 def all(args):
     """Retrieve all deals"""
+    DEFAULT_DEALS_PAGE = current_app.config["DEFAULT_DEALS_PAGE"]
+    DEFAULT_DEALS_PER_PAGE = current_app.config["DEFAULT_DEALS_PER_PAGE"]
+
     city = args.get("city", None)
     district = args.get("district", None)
     from_ = args.get("from_date", None)
     to_ = args.get("to_date", None)
     sort_by = args.get("sort_by", "created_at")
     sort_rule = args.get("sort_rule", "asc")
-    offset = args.get("offset", DEFAULT_OFFSET)
-    limit = args.get("limit", DEFAULT_LIMIT)
+    page = args.get("page", DEFAULT_DEALS_PAGE)
 
     where_condition = (
         Deal.city == city,
         Deal.district == district,
-        Deal.created_at.between(from_, to_)
+        Deal.created_at.between(from_, to_),
     )
 
     sort_by = getattr(Deal, sort_by)
     order_condition = sort_by.desc() if sort_rule == "desc" else sort_by.asc()
 
+    page_condition = {
+        "page": page,
+        "per_page": DEFAULT_DEALS_PER_PAGE,
+        "error_out": False,
+    }
+
     try:
-        deals = (Deal
-                 .query
-                 .filter(*where_condition)
-                 .order_by(order_condition)
-                 .offset(offset)
-                 .limit(limit)
-                 .all())
+        deals = (
+            Deal.query
+                .filter(*where_condition)
+                .order_by(order_condition)
+                .paginate(**page_condition)
+        )
     except Exception:
         abort(500)
     else:
-        return deals
+        return deals.items
 
 
 @api.route("/deals/<int:id>", methods=["GET"])

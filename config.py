@@ -11,4 +11,7 @@ class Config(object):
     # suppress FSADeprecationWarning
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = True
+
+    DEFAULT_DEALS_PAGE = 1
+    DEFAULT_DEALS_PER_PAGE = 2
     

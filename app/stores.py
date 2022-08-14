@@ -40,8 +40,8 @@ def get_city_deals_between_date(
     _args = {
         "city": city,
         "district": district,
-        "from_date": from_date,
-        "to_date": to_date,
+        "from_timestamp": int(from_date.timestamp()),
+        "to_timestamp": int(to_date.timestamp()),
         "sort_by": sort_by,
         "sort_rule": sort_rule,
     }

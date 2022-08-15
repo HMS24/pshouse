@@ -5,11 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block link %} {% endblock %}
 </head>
 
 <body>
     <div>
         {% block title %} {% endblock %}
     </div>
-    {% block page_content %} {% endblock %}
+    <div>
+        {% block page_content %} {% endblock %}
+    </div>
+    {% block scripts %} {% endblock %}
 </body>

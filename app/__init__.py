@@ -33,6 +33,6 @@ def create_app(config_cls=Config):
     app.register_blueprint(main_blueprint)
 
     from app.api import api as api_blueprint
-    app.register_blueprint(api_blueprint, url_prefix="/api/v1")
+    app.register_blueprint(api_blueprint, url_prefix="/apiv1")
 
     return app

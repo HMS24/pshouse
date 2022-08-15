@@ -2,7 +2,7 @@ from flask import abort
 
 from app.api import api
 from app.models import Deal
-from app.stores import get_city_deals_between_date
+from app.stores import get_deals_between_date
 from app.schemas import (
     DealRespSchema,
     ListedDealRespSchema,
@@ -20,20 +20,38 @@ deal_scema = DealSchema()
 @response(listed_deal_resp_schema)
 def all(args):
     """Retrieve all deals"""
-    city = args.get("city")
-    district = args.get("district")
-    from_date = args.get("from_date")
-    to_date = args.get("to_date")
-    page = args.get("page", 1)
+    city = args.get("city", "新北市")
+    district = args.get("district", "淡水區")
+    from_ = args.get("from_")
+    to_ = args.get("to_")
+    build_name = args.get("build_name")
+    sort = args.get("sort")
+    start = args.get("start", -1)
+    length = args.get("length", -1)
+
+    # 轉成 [("colname", "desc")]
+    orders = []
+    if sort:
+        for s in sort.split(","):
+            order = s[0]
+            sort_by = s[1:]
+
+            if sort_by not in ["price", "unit_price", "parking_sapce_price"]:
+                sort_by = "price"
+
+            order = "desc" if order == "-" else "asc"
+            orders.append((sort_by, order))
 
     try:
-        return get_city_deals_between_date(
+        return get_deals_between_date(
             city=city,
             district=district,
-            from_date=from_date,
-            to_date=to_date,
-            page=page,
-            page_endpoint="api.all",
+            from_=from_,
+            to_=to_,
+            build_name=build_name,
+            orders=orders,
+            start=start,
+            length=length,
         )
     except Exception as e:
         return abort(500, repr(e))

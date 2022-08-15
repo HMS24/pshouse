@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-DEFAULT_INTEVERAL_OF_DAYS = 30
+DEFAULT_INTEVERAL_OF_DAYS = 120
 
 
 def generate_inteveral_date_before(date, days=DEFAULT_INTEVERAL_OF_DAYS):

@@ -1,57 +1,50 @@
-from flask import url_for
 from app.models import Deal
 
-DEFAULT_DEALS_PER_PAGE = 2
 
-
-def get_city_deals_between_date(
+def get_deals_between_date(
     city,
     district,
-    from_date,
-    to_date,
-    page,
-    sort_by="created_at",
-    sort_rule="desc",
-    page_error_out=False,
-    page_endpoint=None,
+    from_,
+    to_,
+    build_name,
+    orders,
+    start,
+    length,
 ):
-    where_condition = (
+    query = Deal.query
+
+    # search filter
+    filter_conditions = [
         Deal.city == city,
         Deal.district == district,
-        Deal.created_at.between(from_date, to_date),
-    )
+        Deal.transaction_date.between(from_, to_),
+    ]
 
-    _sort_by = getattr(Deal, sort_by)
-    order_condition = _sort_by.desc() if sort_rule == "desc" else _sort_by.asc()
+    if build_name:
+        filter_conditions.append(Deal.build_name.like(f"%{build_name}%"))
 
-    page_condition = {
-        "page": page,
-        "per_page": DEFAULT_DEALS_PER_PAGE,
-        "error_out": page_error_out,
-    }
+    query = query.filter(*filter_conditions)
+    total = query.count()
 
-    pagination = (
-        Deal.query
-        .filter(*where_condition)
-        .order_by(order_condition)
-        .paginate(**page_condition)
-    )
+    # sorting
+    order_conditions = [
+        Deal.transaction_date.desc(),
+    ]
 
-    _args = {
-        "city": city,
-        "district": district,
-        "from_timestamp": int(from_date.timestamp()),
-        "to_timestamp": int(to_date.timestamp()),
-        "sort_by": sort_by,
-        "sort_rule": sort_rule,
-    }
+    if orders:
+        for sort_by, order in orders:
+            field = getattr(Deal, sort_by)
+            if order == "desc":
+                sort_by = field.desc()
+            order_conditions.append(field)
 
-    prev = url_for(page_endpoint, **_args, page=page-1) if pagination.has_prev else None
-    next = url_for(page_endpoint, **_args, page=page+1) if pagination.has_next else None
+    query.order_by(*order_conditions)
+
+    # pagination
+    if start > -1 and length > -1:
+        query = query.offset(start).limit(length)
 
     return {
-        "data": pagination.items,
-        "total": pagination.total,
-        "prev": prev,
-        "next": next,
+        "data": query.all(),
+        "total": total,
     }

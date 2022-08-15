@@ -10,27 +10,43 @@ class DealSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Deal
 
+    # request
     id = ma.auto_field()
-    city = ma.String(required=True)
-    district = ma.String(required=True)
+    city = ma.String()
+    district = ma.String()
+    build_name = ma.String()
+    from_ = ma.Integer()    # timestamp
+    to_ = ma.Integer()  # timestamp
+    sort = ma.String()
+    start = ma.Integer()
+    length = ma.Integer()
+
+    # response
+    object_of_transaction = ma.String()
+    location = ma.String()
+    transaction_date = ma.Date()
+    building_total_area = ma.Float()
+    room = ma.Integer()
+    restaurant_and_living_room = ma.Integer()
+    bathroom = ma.Integer()
+    buildings = ma.String()
+    price = ma.Integer()
+    unit_price = ma.Integer()
+    parking_sapce_price = ma.Integer()
+    note = ma.String()
     created_at = ma.DateTime()
     updated_at = ma.DateTime()
-
-    from_timestamp = ma.Integer()
-    to_timestamp = ma.Integer()
-    sort_by = ma.String()
-    sort_rule = ma.String()
-    page = ma.Integer()
 
     @post_load
     def set_default_query_date_if_not_exists(self, data, **kwargs):
         (default_from, default_to) = generate_inteveral_date_before(datetime.now())
 
-        from_timestamp = data.get("from_timestamp", default_from)
-        to_timestamp = data.get("to_timestamp", default_to)
+        from_ = data.get("from_", default_from)
+        to_ = data.get("to_", default_to)
 
-        data["from_date"] = datetime.fromtimestamp(from_timestamp)
-        data["to_date"] = datetime.fromtimestamp(to_timestamp)
+        # timestamp to datetime
+        data["from_"] = datetime.fromtimestamp(from_)
+        data["to_"] = datetime.fromtimestamp(to_)
 
         return data
 

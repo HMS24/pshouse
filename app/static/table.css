@@ -1,7 +1,8 @@
-* {
-    font-size: 12px;
-}
-
 body {
     font-family: Sans-Serif;
+}
+
+
+tr.gridjs-tr:nth-child(even) td {
+    background: #dee2e6;
 }

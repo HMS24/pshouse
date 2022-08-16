@@ -24,7 +24,7 @@ def all(args):
     district = args.get("district", "淡水區")
     from_ = args.get("from_")
     to_ = args.get("to_")
-    build_name = args.get("build_name")
+    search = args.get("search")
     sort = args.get("sort")
     start = args.get("start", -1)
     length = args.get("length", -1)
@@ -48,7 +48,7 @@ def all(args):
             district=district,
             from_=from_,
             to_=to_,
-            build_name=build_name,
+            build_name=search,
             orders=orders,
             start=start,
             length=length,

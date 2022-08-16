@@ -2,7 +2,7 @@ const updateUrl = (prev, query) => {
     return prev + (prev.indexOf("?") >= 0 ? "&" : "?") + new URLSearchParams(query).toString()
 }
 
-const columns = [
+const displayColumns = [
     // { id: "id", name: "編號", sort: false },
     { id: "city", name: "城市", sort: false },
     { id: "district", name: "區域", sort: false },
@@ -15,8 +15,8 @@ const columns = [
     { id: "restaurant_and_living_room", name: "客餐廳數", sort: false },
     { id: "bathroom", name: "衛浴數", sort: false },
     { id: "buildings", name: "建築物", sort: false },
-    { id: "price", name: "總價", sort: false },
-    { id: "unit_price", name: "單價", sort: false },
+    { id: "price", name: "總價" },
+    { id: "unit_price", name: "單價" },
     { id: "parking_sapce_price", name: "車位價", sort: false },
     // { id: "note", name: "備註", sort: false },
     // { id: "created_at", name: "新增時間", sort: false },
@@ -24,7 +24,7 @@ const columns = [
 ]
 
 const grid = new gridjs.Grid({
-    columns: columns,
+    columns: displayColumns,
     server: {
         url: "/apiv1/deals",
         then: results => results.result.data,
@@ -39,11 +39,11 @@ const grid = new gridjs.Grid({
         },
     },
     sort: {
-        enabled: false,
+        enabled: true,
         multiColumn: true,
         server: {
             url: (prev, columns) => {
-                const columnIndices = Object.keys(columns)
+                const columnIndices = displayColumns.map(column => column.id)
                 const sort = columns.map(col => (col.direction === 1 ? "+" : "-") + columnIndices[col.index])
                 return updateUrl(prev, { sort })
             },

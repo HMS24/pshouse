@@ -11,17 +11,17 @@ class DealSchema(ma.SQLAlchemySchema):
         model = Deal
 
     # request
-    id = ma.auto_field()
-    city = ma.String()
-    district = ma.String()
-    build_name = ma.String()
     from_ = ma.Integer()    # timestamp
     to_ = ma.Integer()  # timestamp
+    search = ma.String()
     sort = ma.String()
     start = ma.Integer()
     length = ma.Integer()
 
     # response
+    id = ma.auto_field()
+    city = ma.String()
+    district = ma.String()
     object_of_transaction = ma.String()
     location = ma.String()
     transaction_date = ma.Date()
@@ -29,6 +29,7 @@ class DealSchema(ma.SQLAlchemySchema):
     room = ma.Integer()
     restaurant_and_living_room = ma.Integer()
     bathroom = ma.Integer()
+    build_name = ma.String()
     buildings = ma.String()
     price = ma.Integer()
     unit_price = ma.Integer()

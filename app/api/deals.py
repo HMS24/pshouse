@@ -36,8 +36,8 @@ def all(args):
             order = s[0]
             sort_by = s[1:]
 
-            if sort_by not in ["price", "unit_price", "parking_sapce_price"]:
-                sort_by = "price"
+            if sort_by not in ["price", "unit_price", "transaction_date"]:
+                sort_by = "transaction_date"
 
             order = "desc" if order == "-" else "asc"
             orders.append((sort_by, order))

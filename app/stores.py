@@ -26,7 +26,7 @@ def get_deals_between_date(
     query = query.filter(*filter_conditions)
     total = query.count()
 
-    # sorting
+    # sorting, default by transaction_date desc
     order_conditions = []
     if orders:
         for sort_by, order in orders:
@@ -34,8 +34,10 @@ def get_deals_between_date(
             if order == "desc":
                 field = field.desc()
             order_conditions.append(field)
+    else:
+        order_conditions.append(Deal.transaction_date.desc())
 
-    query = query.order_by(*order_conditions, Deal.transaction_date.desc())
+    query = query.order_by(*order_conditions)
 
     # pagination
     if start > -1 and length > -1:

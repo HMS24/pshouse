@@ -1,28 +1,20 @@
-import logging
-
 from flask import Flask
-from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from config import Config
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)10.19s [%(levelname)s] %(message)s",
-    handlers=[logging.FileHandler("debug.log"), logging.StreamHandler()],
-)
+from config import config as config_dict
 
 db = SQLAlchemy()
-migrate = Migrate()
 ma = Marshmallow()
 
 
-def create_app(config_cls=Config):
+def create_app(config_name):
     app = Flask(__name__)
-    app.config.from_object(config_cls)
 
+    config = config_dict[config_name]
+    app.config.from_object(config)
+
+    config.init_app(app)
     db.init_app(app)
-    migrate.init_app(app, db)
     ma.init_app(app)
 
     # blueprints

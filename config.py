@@ -14,7 +14,7 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    # SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = True
     SQLALCHEMY_DATABASE_URI = os.getenv("DEV_DATABASE_URL") or \
         "sqlite:///" + os.path.join(basedir, "app-dev.db")
 

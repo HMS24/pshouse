@@ -16,12 +16,12 @@ class Config:
 class DevelopmentConfig(Config):
     # SQLALCHEMY_ECHO = True
     SQLALCHEMY_DATABASE_URI = os.getenv("DEV_DATABASE_URL") or \
-        "sqlite:///" + os.path.join(basedir, "app-dev.sqlite")
+        "sqlite:///" + os.path.join(basedir, "app-dev.db")
 
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.getenv("PROD_DATABASE_URL") or \
-        "sqlite:///" + os.path.join(basedir, "app-prod.sqlite")
+        "sqlite:///" + os.path.join(basedir, "app-prod.db")
 
 
 class DockerConfig(ProductionConfig):

@@ -1,7 +1,9 @@
 FROM python:3.8-slim
 
+ARG FLASK_CONFIG
+
 ENV FLASK_APP presale.py
-ENV FLASK_CONFIG docker
+ENV FLASK_CONFIG ${FLASK_CONFIG}
 
 RUN useradd presale
 

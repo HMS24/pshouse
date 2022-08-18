@@ -1,2 +1,0 @@
-FLASK_APP=presale.py
-FLASK_ENV=development

@@ -14,12 +14,12 @@ def wants_json_response():
 @errors.app_errorhandler(404)
 def not_found_error(e):
     if wants_json_response():
-        return api_error_response(404, e.decription)
+        return api_error_response(404, e.description)
     return render_template("errors/404.html"), 404
 
 
 @errors.app_errorhandler(500)
 def internal_error(e):
     if wants_json_response():
-        return api_error_response(500, e.decription)
+        return api_error_response(500, e.description)
     return render_template("errors/500.html"), 500

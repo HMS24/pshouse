@@ -1,9 +1,7 @@
 FROM python:3.8-slim
 
-ARG FLASK_CONFIG
-
 ENV FLASK_APP presale.py
-ENV FLASK_CONFIG ${FLASK_CONFIG}
+ENV FLASK_CONFIG docker
 
 RUN useradd presale
 
@@ -16,8 +14,8 @@ RUN venv/bin/pip3 install -r requirements/docker.txt
 COPY app app
 COPY migrations migrations
 COPY presale.py config.py boot.sh ./
-RUN chmod +x boot.sh
 
+RUN chmod +x boot.sh
 RUN chown -R presale:presale ./
 USER presale
 

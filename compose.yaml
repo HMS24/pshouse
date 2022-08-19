@@ -1,0 +1,47 @@
+version: '3'
+services:
+  db:
+    image: mariadb:10-focal
+    command: '--default-authentication-plugin=mysql_native_password'
+    container_name: db
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - backend_net
+    env_file: .env.mysql
+    expose:
+      - 3306
+
+  app:
+    build:
+      context: .
+      dockerfile: ./deployment/app/Dockerfile
+    container_name: app
+    restart: always
+    env_file: .env
+    networks:
+      - backend_net
+      - frontend_net
+    depends_on:
+      - db
+
+  proxy:
+    build:
+      context: ./deployment/proxy/
+    container_name: proxy
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - app
+    networks:
+      - frontend_net
+
+volumes:
+  db_data:
+
+
+networks:
+  frontend_net:
+  backend_net:

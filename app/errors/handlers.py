@@ -1,6 +1,7 @@
 from flask import (
     render_template,
     request,
+    current_app
 )
 
 from app.errors import errors
@@ -13,6 +14,8 @@ def wants_json_response():
 
 @errors.app_errorhandler(404)
 def not_found_error(e):
+    current_app.logger.error(e)
+
     if wants_json_response():
         return api_error_response(404, e.description)
     return render_template("errors/404.html"), 404
@@ -20,6 +23,8 @@ def not_found_error(e):
 
 @errors.app_errorhandler(500)
 def internal_error(e):
+    current_app.logger.error(e)
+
     if wants_json_response():
         return api_error_response(500, e.description)
     return render_template("errors/500.html"), 500

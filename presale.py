@@ -9,7 +9,7 @@ if os.path.exists(dotenv_path):
 from flask_migrate import Migrate, upgrade  # noqa
 from app import create_app, db  # noqa
 
-config = os.getenv("FLASK_CONFIG") or "development"
+config = os.getenv("FLASK_CONFIG") or "docker"
 
 app = create_app(config)
 migrate = Migrate(app, db)

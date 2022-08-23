@@ -17,6 +17,8 @@ services:
     build:
       context: .
       dockerfile: ./deployment/app/Dockerfile
+      args:
+        gunicorn_options: --reload
     container_name: app
     restart: always
     env_file: .env

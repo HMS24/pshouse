@@ -10,4 +10,4 @@ while true; do
     sleep 5
 done
 
-exec gunicorn -b :5000 --access-logfile - --error-logfile - presale:app
+exec gunicorn $GUNICORN_OPTIONS -b :5000 --access-logfile - --error-logfile - presale:app

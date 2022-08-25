@@ -16,7 +16,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./deployment/app/Dockerfile
+      dockerfile: ./build/app/Dockerfile
       args:
         gunicorn_options: --reload
     container_name: app
@@ -30,7 +30,7 @@ services:
 
   proxy:
     build:
-      context: ./deployment/proxy/
+      context: ./build/proxy/
     container_name: proxy
     restart: always
     ports:

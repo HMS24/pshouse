@@ -6,7 +6,7 @@ while true; do
     if [[ "$?" == "0" ]]; then
         break
     fi
-    echo Deploy command failed, retrying in 5 secs...
+    echo Deploy failed, retrying in 5 secs...
     sleep 5
 done
 

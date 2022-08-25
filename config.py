@@ -22,6 +22,14 @@ class DockerConfig(Config):
         Config.init_app(app)
 
 
+class TestConfig(Config):
+    DEBUG = False
+    SQLALCHEMY_RECORD_QUERIES = False
+    SQLALCHEMY_ECHO = False
+    SQLALCHEMY_DATABASE_URI = os.environ.get("TEST_DATABASE_URL") or "sqlite:///:memory:"
+
+
 config = {
     "docker": DockerConfig,
+    "test": TestConfig,
 }

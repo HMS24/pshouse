@@ -38,6 +38,10 @@ class DealSchema(ma.SQLAlchemySchema):
     parking_sapce_price = ma.Integer()
     parking_sapce_type = ma.String()
     note = ma.String()
+    total_floor_numbers = ma.String()
+    building_state = ma.String()
+    main_use = ma.String()
+    land_total_area = ma.Float()
     created_at = ma.DateTime()
     updated_at = ma.DateTime()
 

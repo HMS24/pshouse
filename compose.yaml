@@ -18,6 +18,7 @@ services:
     container_name: app
     restart: always
     env_file: .env
+    entrypoint: ./boot.sh
     networks:
       - backend_net
       - frontend_net

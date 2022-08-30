@@ -14,11 +14,7 @@ services:
       - 3306
 
   app:
-    build:
-      context: .
-      dockerfile: ./builds/app/Dockerfile
-      args:
-        gunicorn_options: --reload
+    image: chimei24/pshouse:latest
     container_name: app
     restart: always
     env_file: .env
@@ -29,8 +25,7 @@ services:
       - db
 
   proxy:
-    build:
-      context: ./builds/proxy/
+    image: chimei24/proxy:latest
     container_name: proxy
     restart: always
     ports:

@@ -5,11 +5,15 @@ set -o pipefail
 
 # build
 echo "********** Building Docker Image **********"
-docker compose build app proxy
+builds/app/build.sh
 
 # test
 echo "********** Testing **********"
-flask test
+builds/app/test.sh
+
+# push
+echo "********** Pushing Docker Image **********"
+builds/app/push.sh $DOCKER_PASS
 
 # deploy
 echo "********** Deploying **********"

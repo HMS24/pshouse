@@ -1,8 +1,8 @@
 FROM python:3.8-slim
 
-ARG gunicorn_options
+ARG GUNICORN_OPTIONS
 
-ENV GUNICORN_OPTIONS $gunicorn_options
+ENV GUNICORN_OPTIONS $GUNICORN_OPTIONS
 ENV FLASK_APP presale.py
 ENV FLASK_CONFIG docker
 

@@ -10,7 +10,7 @@ IMAGE="pshouse:latest"
 
 # build docker image
 docker build \
- --no-cache \
+--no-cache \
 -t $IMAGE \
 -f $DOCKERFILE_DIR_PATH/Dockerfile .
 

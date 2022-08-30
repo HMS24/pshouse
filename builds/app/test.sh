@@ -1,7 +1,10 @@
 #!/bin/bash
 
-set -e
+set -xe
+set -o pipefail
 
-flask test
+IMAGE="pshouse:latest"
+
+docker run --rm $IMAGE venv/bin/flask test
 
 exit 0

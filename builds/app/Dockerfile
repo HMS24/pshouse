@@ -1,8 +1,5 @@
 FROM python:3.8-slim
 
-ARG GUNICORN_OPTIONS
-
-ENV GUNICORN_OPTIONS $GUNICORN_OPTIONS
 ENV FLASK_APP presale.py
 ENV FLASK_CONFIG docker
 
@@ -16,11 +13,11 @@ RUN venv/bin/pip3 install -r requirements/docker.txt
 
 COPY app app
 COPY migrations migrations
+COPY tests tests
 COPY presale.py config.py boot.sh ./
 
 RUN chmod +x boot.sh
 RUN chown -R presale:presale ./
-USER presale
 
+USER presale
 EXPOSE 5000
-ENTRYPOINT ["./boot.sh"]

@@ -3,12 +3,8 @@
 set -xe
 set -o pipefail
 
-DOCKER_USER="chimei24"
-DOCKER_PASS=$1
-IMAGE="pshouse:latest"
-
 # login
-docker login -u $DOCKER_USER -p $DOCKER_PASS
+docker login -u $DOCKER_USER --password-stdin < ~/docker_pass
 
 # tag
 docker tag $IMAGE $DOCKER_USER/$IMAGE

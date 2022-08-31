@@ -6,7 +6,6 @@ set -o pipefail
 
 # declare
 DOCKERFILE_DIR_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-IMAGE="pshouse:latest"
 
 # build docker image
 docker build \

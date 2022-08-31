@@ -30,7 +30,7 @@ echo "**********************************"
 
 if [ "$USER" = "localhost" ]; 
     then
-	    echo "Deploy to localhost"
+        echo "Deploy to localhost"
         docker compose up -d
     else
         echo "Deploy to $USER@$HOST"

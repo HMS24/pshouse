@@ -10,6 +10,6 @@ export DOCKER_PASS=$(sed -n '4p' /tmp/.auth)
 
 echo "$DOCKER_PASS" > docker login -u $DOCKER_USER --password-stdin
 
-cd ~/pshouse && docker compose up -d
+cd ~/pshouse && docker compose up -d && rm /tmp/.auth 
 
 exit 0

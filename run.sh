@@ -28,7 +28,13 @@ echo "**********************************"
 echo "** Deploying *********************"
 echo "**********************************"
 
-deploy/deploy.sh $USER $HOST
+if [ "$USER" = "localhost" ]; 
+    then
+	    echo "Deploy to localhost"
+        docker compose up -d
+    else
+        echo "Deploy to $USER@$HOST"
+        deploy/deploy.sh $USER $HOST
+fi
 
-# docker compose up -d
 exit 0

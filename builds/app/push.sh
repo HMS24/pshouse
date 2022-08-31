@@ -7,9 +7,9 @@ set -o pipefail
 docker login -u $DOCKER_USER --password-stdin < ~/docker_pass
 
 # tag
-docker tag $IMAGE $DOCKER_USER/$IMAGE
+docker tag $IMAGE:$TAG $DOCKER_USER/$IMAGE:$TAG
 
 # push
-docker push $DOCKER_USER/$IMAGE
+docker push $DOCKER_USER/$IMAGE:$TAG
 
 exit 0

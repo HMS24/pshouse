@@ -3,6 +3,6 @@
 set -xe
 set -o pipefail
 
-docker run --rm $IMAGE venv/bin/flask test
+docker run --rm $IMAGE:$TAG venv/bin/flask test
 
 exit 0

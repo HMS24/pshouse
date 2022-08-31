@@ -8,9 +8,10 @@ set -o pipefail
 DOCKERFILE_DIR_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # build docker image
-docker build \
+docker buildx build \
 --no-cache \
--t $IMAGE \
+--platform linux/amd64 \
+-t $IMAGE:$TAG \
 -f $DOCKERFILE_DIR_PATH/Dockerfile .
 
 exit 0

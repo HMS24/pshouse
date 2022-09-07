@@ -13,7 +13,7 @@ cat ~/docker_pass >> /tmp/.auth
 
 scp -i $SSH_PEM /tmp/.auth $REMOTE_MACHINE:/tmp/.auth
 scp -i $SSH_PEM ./deploy/publish.sh $REMOTE_MACHINE:/tmp/publish.sh
-scp -i $SSH_PEM ./compose.yaml $REMOTE_MACHINE:~/pshouse/compose.yaml
+scp -i $SSH_PEM ./compose.yaml $REMOTE_MACHINE:~/psh/compose.yaml
 
 ssh -i $SSH_PEM $REMOTE_MACHINE ". /tmp/publish.sh"
 

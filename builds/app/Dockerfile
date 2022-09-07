@@ -18,7 +18,6 @@ COPY --chown=admin:admin tests tests
 COPY --chown=admin:admin pshouse.py config.py boot.sh ./
 
 RUN chmod +x boot.sh
-RUN chown -R pshouse:pshouse ./
 
 USER admin
 EXPOSE 5000

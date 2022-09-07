@@ -6,8 +6,8 @@ set -o pipefail
 REMOTE_MACHINE=$1@$2
 SSH_PEM="~/chimei_24.pem"
 
-echo "$IMAGE" > /tmp/.auth
-echo "$TAG" >> /tmp/.auth
+echo "$WEB_IMAGE" > /tmp/.auth
+echo "$WEB_TAG" >> /tmp/.auth
 echo "$DOCKER_USER" >> /tmp/.auth
 cat ~/docker_pass >> /tmp/.auth
 

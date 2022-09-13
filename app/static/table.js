@@ -48,6 +48,7 @@ const grid = new gridjs.Grid({
                 return updateUrl(prev, { search })
             },
         },
+        debounceTimeout: 400,
     },
     sort: {
         enabled: true,

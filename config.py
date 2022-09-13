@@ -2,6 +2,8 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+DAY_OF_A_YEAR = 365
+
 
 class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI") or \
@@ -9,6 +11,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = True
     SQLALCHEMY_ECHO = False
+    DATA_REVEAL_DAYS = os.getenv("DATA_REVEAL_DAYS") or DAY_OF_A_YEAR
 
     @staticmethod
     def init_app(app):

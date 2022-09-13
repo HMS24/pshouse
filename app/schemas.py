@@ -3,7 +3,7 @@ from marshmallow import post_load
 
 from app import ma
 from app.models import Deal
-from app.utils import generate_inteveral_date_before
+from app.utils import generate_start_end_timestamp
 
 
 class DealSchema(ma.SQLAlchemySchema):
@@ -47,7 +47,7 @@ class DealSchema(ma.SQLAlchemySchema):
 
     @post_load
     def set_default_query_date_if_not_exists(self, data, **kwargs):
-        (default_from, default_to) = generate_inteveral_date_before(datetime.now())
+        (default_from, default_to) = generate_start_end_timestamp(datetime.now())
 
         from_ = data.get("from_", default_from)
         to_ = data.get("to_", default_to)

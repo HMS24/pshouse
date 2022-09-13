@@ -5,11 +5,13 @@ from config import config as config_dict
 
 db = SQLAlchemy()
 ma = Marshmallow()
+config = None
 
 
 def create_app(config_name):
     app = Flask(__name__)
 
+    global config
     config = config_dict[config_name]
     app.config.from_object(config)
 

@@ -65,9 +65,6 @@ class DealRespSchema(ma.Schema):
 
 class PageSchema(ma.Schema):
     data = ma.List(ma.Nested(DealSchema))
-    prev = ma.String(dump_only=True)
-    next = ma.String(dump_only=True)
-    count = ma.Integer(dump_only=True)
     total = ma.Integer(dump_only=True)
 
 

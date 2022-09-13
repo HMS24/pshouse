@@ -3,8 +3,15 @@
 set -e
 set -o pipefail
 
-USER=$1
-HOST=$2
+DEPLOY_PLACE=$1
+
+# replace ??????
+export DOCKER_USER=?????? && export WEB_IMAGE=?????? && export WEB_TAG=??????
+
+if [ -z "$DEPLOY_PLACE" ]; then
+	echo "DEPLOY_PLACE argument is required!"
+	exit 1
+fi
 
 # build
 echo "**********************************"
@@ -37,8 +44,8 @@ if [ "$USER" = "localhost" ];
         echo "Deploy to localhost"
         docker compose up -d
     else
-        echo "Deploy to $USER@$HOST"
-        deploy/deploy.sh $USER $HOST
+        echo "Deploy to $DEPLOY_PLACE"
+        deploy/deploy.sh $DEPLOY_PLACE
 fi
 
 exit 0

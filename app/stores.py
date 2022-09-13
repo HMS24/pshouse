@@ -21,7 +21,7 @@ def get_deals_between_date(
     ]
 
     if build_name:
-        filter_conditions.append(Deal.build_name.like(f"%{build_name}%"))
+        filter_conditions.append(Deal.build_name.like(f"%{build_name.strip()}%"))
 
     query = query.filter(*filter_conditions)
     total = query.count()

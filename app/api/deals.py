@@ -30,17 +30,7 @@ def all(args):
     length = args.get("length", -1)
 
     # 轉成 [("colname", "desc")]
-    orders = []
-    if sort:
-        for s in sort.split(","):
-            order = s[0]
-            sort_by = s[1:]
-
-            if sort_by not in ["price", "unit_price", "transaction_date"]:
-                sort_by = "transaction_date"
-
-            order = "desc" if order == "-" else "asc"
-            orders.append((sort_by, order))
+    orders = _transform_sort_by_order_pair_list(sort) if sort else []
 
     try:
         return get_deals_between_date(
@@ -48,10 +38,10 @@ def all(args):
             district=district,
             from_=from_,
             to_=to_,
-            build_name=search,
-            orders=orders,
             start=start,
             length=length,
+            orders=orders,
+            build_name=search,
         )
     except Exception as e:
         return abort(500, repr(e))
@@ -63,3 +53,24 @@ def get(id):
     """Retrieve a deal by id"""
     return Deal.query.get(id) \
         or abort(404, f"Deal id {id} doesn't exist.")
+
+
+def _transform_sort_by_order_pair_list(sort_str):
+    can_sort_columns = [
+        "price",
+        "unit_price",
+        "transaction_date",
+    ]
+    orders = []
+
+    for s in sort_str.split(","):
+        order = s[0]
+        sort_by = s[1:]
+
+        if sort_by not in can_sort_columns:
+            sort_by = "transaction_date"
+
+        order = "desc" if order == "-" else "asc"
+        orders.append((sort_by, order))
+
+    return orders

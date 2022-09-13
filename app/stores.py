@@ -6,10 +6,10 @@ def get_deals_between_date(
     district,
     from_,
     to_,
-    build_name,
-    orders,
     start,
     length,
+    orders,
+    build_name,
 ):
     query = Deal.query
 
@@ -28,13 +28,13 @@ def get_deals_between_date(
 
     # sorting, default by transaction_date desc
     order_conditions = []
-    if orders:
-        for sort_by, order in orders:
-            field = getattr(Deal, sort_by)
-            if order == "desc":
-                field = field.desc()
-            order_conditions.append(field)
-    else:
+    for sort_by, order in orders:
+        field = getattr(Deal, sort_by)
+        if order == "desc":
+            field = field.desc()
+        order_conditions.append(field)
+
+    if not orders:
         order_conditions.append(Deal.transaction_date.desc())
 
     query = query.order_by(*order_conditions)

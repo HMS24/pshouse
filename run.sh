@@ -39,12 +39,11 @@ echo "**********************************"
 echo "** Deploying *********************"
 echo "**********************************"
 
-if [ "$USER" = "localhost" ]; 
+echo "Deploy to $DEPLOY_PLACE"
+if [ "$DEPLOY_PLACE" = "localhost" ]; 
     then
-        echo "Deploy to localhost"
         docker compose up -d
     else
-        echo "Deploy to $DEPLOY_PLACE"
         deploy/deploy.sh $DEPLOY_PLACE
 fi
 

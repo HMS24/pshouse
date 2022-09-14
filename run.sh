@@ -5,8 +5,11 @@ set -o pipefail
 
 DEPLOY_PLACE=$1
 
-# replace ??????
-export DOCKER_USER=?????? && export WEB_IMAGE=?????? && export WEB_TAG=??????
+# replace ********
+export DOCKER_USER=********
+export IMAGE=psh
+export TAG=********
+export SSH_PEM=********
 
 if [ -z "$DEPLOY_PLACE" ]; then
 	echo "DEPLOY_PLACE argument is required!"
@@ -40,7 +43,8 @@ echo "** Deploying *********************"
 echo "**********************************"
 
 echo "Deploy to $DEPLOY_PLACE"
-if [ "$DEPLOY_PLACE" = "localhost" ]; 
+
+if [ "$DEPLOY_PLACE" = "local" ];
     then
         docker compose up -d
     else

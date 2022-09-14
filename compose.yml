@@ -14,7 +14,7 @@ services:
       - 3306
 
   app:
-    image: $DOCKER_USER/$WEB_IMAGE:$WEB_TAG
+    image: $DOCKER_USER/$IMAGE:$TAG
     container_name: app
     restart: always
     env_file: .env

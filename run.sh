@@ -1,18 +1,45 @@
-#!/bin/bash
+#!/bin/bash -e
 
-set -e
 set -o pipefail
 
-DEPLOY_PLACE=$1
+# declare
+TARGET=""
+SSH_PEM=""
+DOCKER_USER="local"
+DOCKER_PASS=""
+IMAGE="psh"
+TAG="latest"
 
-# replace ********
-export DOCKER_USER=********
-export IMAGE=psh
-export TAG=********
-export SSH_PEM=********
+while [[ "$#" -gt 0 ]]; do
+	case $1 in
+		--target) TARGET="$2"; shift ;;
+		--ssh-pem) SSH_PEM="$2"; shift ;;
+		--docker-user) DOCKER_USER="$2"; shift ;;
+		--docker-pass) DOCKER_PASS="$2"; shift ;;
+		--image) IMAGE="$2"; shift ;;
+		--tag) TAG="$2"; shift ;;
+		*) echo "Unknown parameter passed: $1"; exit 1 ;;
+	esac
+	shift
+done
 
-if [ -z "$DEPLOY_PLACE" ]; then
-	echo "DEPLOY_PLACE argument is required!"
+if [ -z "$TARGET" ]; then
+	echo "--target argument is required!"
+	exit 1
+fi
+
+if [ "$TARGET" != "local" ] && [ -z "$SSH_PEM" ]; then
+	echo "--ssh-pem argument is required!"
+	exit 1
+fi
+
+if [ "$TARGET" != "local" ] && [ "$DOCKER_USER" == "local" ]; then
+	echo "--docker-user argument is required!"
+	exit 1
+fi
+
+if [ "$TARGET" != "local" ] && [ -z "$DOCKER_PASS" ]; then
+	echo "--docker-pass argument is required!"
 	exit 1
 fi
 
@@ -21,34 +48,37 @@ echo "**********************************"
 echo "** Building image ****************"
 echo "**********************************"
 
-builds/app/build.sh
+builds/app/build.sh $IMAGE $TAG
 
 # test
 echo "**********************************"
 echo "** Testing ***********************"
 echo "**********************************"
 
-builds/app/test.sh
+builds/app/test.sh $IMAGE $TAG
 
 # push
 echo "**********************************"
 echo "** Pushing image *****************"
 echo "**********************************"
 
-builds/app/push.sh
+builds/app/push.sh $TARGET $IMAGE $TAG $DOCKER_USER $DOCKER_PASS
 
 # deploy
 echo "**********************************"
 echo "** Deploying *********************"
 echo "**********************************"
 
-echo "Deploy to $DEPLOY_PLACE"
+echo "Deploy to $TARGET"
 
-if [ "$DEPLOY_PLACE" = "local" ];
-    then
-        docker compose up -d
-    else
-        deploy/deploy.sh $DEPLOY_PLACE
+if [ "$TARGET" = "local" ]; then
+	DOCKER_USER=$DOCKER_USER \
+	IMAGE=$IMAGE \
+	TAG=$TAG \
+	docker compose up -d
+
+else
+    deploy/deploy.sh $TARGET $SSH_PEM $IMAGE $TAG $DOCKER_USER $DOCKER_PASS
 fi
 
 exit 0

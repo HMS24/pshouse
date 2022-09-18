@@ -1,5 +1,6 @@
 # pshouse
 預售屋實價登錄列表 pre-sale house
+[demo site](http://13.124.49.112/)
 
 ## 描述
 
@@ -10,10 +11,13 @@
 
 使用 `Flask` 框架開發 APIs 及 `Grid.js` 實作前端表格。資料由 [pshouse_schedule](https://github.com/HMS24/pshouse_schedule) 專案定期向內政部更新資料到 MySQL 資料庫。
 
-**限制 1: 目前僅擷取新北市全區 2 年內登錄的預售案。首頁預設為新北市淡水區，無法修改區域但可以 [call API](https://github.com/HMS24/pshouse#api-spec) 抓其他區的資料。**
+**限制 1: 目前僅擷取新北市全區 2 年內登錄的預售案。首頁預設為新北市淡水區，無法修改區域但可以 [call API](https://github.com/HMS24/pshouse#api-spec) 抓其他區的資料。**<br />
+**限制 2: 專案與 [pshouse_schedule](https://github.com/HMS24/pshouse_schedule) 的排程合作，共用 database 並由 web application 負責 migrate database。缺點是得維護兩邊的 model 層並增加一些部署上的困擾🥲**<br />
 
-**限制 2: 專案與 [pshouse_schedule](https://github.com/HMS24/pshouse_schedule) 的排程合作，共用 database 並由 web application 負責 migrate database。缺點是得維護兩邊的 model 層並增加一些部署上的困擾🥲**
-    
+<p align="center">
+<img src="./assets/demo.gif" alt="_" width="1080"/>
+</p>
+
 ## 如何使用
 ### 開發
 
@@ -112,8 +116,8 @@ Parameters
 ## API spec
 ### (deals 實價登錄交易) 相關 endpoints
 
-- [Show deals](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : GET /apiv1/deals
-- [Show a deal](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : GET /apiv1/deals/:id
+- [Show deals](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : [GET /apiv1/deals](http://13.124.49.112/apiv1/deals)
+- [Show a deal](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : [GET /apiv1/deals/:id](http://13.124.49.112/apiv1/deals/2)
 
 ## 預計工作
 - 功能

@@ -9,11 +9,16 @@ IMAGE=$3
 TAG=$4
 DOCKER_USER=$5
 DOCKER_PASS=$6
+PROXY_IMAGE=$7
+PROXY_IMAGE_TAG=$8
 
 echo "$IMAGE" > /tmp/.auth
 echo "$TAG" >> /tmp/.auth
 echo "$DOCKER_USER" >> /tmp/.auth
+echo "$PROXY_IMAGE" >> /tmp/.auth
+echo "$PROXY_IMAGE_TAG" >> /tmp/.auth
 cat $DOCKER_PASS >> /tmp/.auth
+
 
 scp -i $SSH_PEM /tmp/.auth $REMOTE_MACHINE:/tmp/.auth
 scp -i $SSH_PEM ./deploy/publish.sh $REMOTE_MACHINE:/tmp/publish.sh

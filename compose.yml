@@ -26,7 +26,7 @@ services:
       - db
 
   proxy:
-    image: $DOCKER_USER/proxy:latest
+    image: $DOCKER_USER/$PROXY_IMAGE:$PROXY_IMAGE_TAG
     container_name: proxy
     restart: always
     ports:

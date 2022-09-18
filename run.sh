@@ -9,6 +9,8 @@ DOCKER_USER="local"
 DOCKER_PASS=""
 IMAGE="psh"
 TAG="latest"
+PROXY_IMAGE="proxy"
+PROXY_IMAGE_TAG="latest"
 
 while [[ "$#" -gt 0 ]]; do
 	case $1 in
@@ -48,7 +50,8 @@ echo "**********************************"
 echo "** Building image ****************"
 echo "**********************************"
 
-builds/app/build.sh $IMAGE $TAG
+builds/build.sh "app" $IMAGE $TAG
+builds/build.sh "proxy" $PROXY_IMAGE $PROXY_IMAGE_TAG
 
 # test
 echo "**********************************"
@@ -62,7 +65,19 @@ echo "**********************************"
 echo "** Pushing image *****************"
 echo "**********************************"
 
-builds/app/push.sh $TARGET $IMAGE $TAG $DOCKER_USER $DOCKER_PASS
+builds/push.sh \
+$TARGET \
+$IMAGE \
+$TAG \
+$DOCKER_USER \
+$DOCKER_PASS
+
+builds/push.sh \
+$TARGET \
+$PROXY_IMAGE \
+$PROXY_IMAGE_TAG \
+$DOCKER_USER \
+$DOCKER_PASS
 
 # deploy
 echo "**********************************"
@@ -73,12 +88,22 @@ echo "Deploy to $TARGET"
 
 if [ "$TARGET" = "local" ]; then
 	DOCKER_USER=$DOCKER_USER \
+	PROXY_IMAGE=$PROXY_IMAGE \
+	PROXY_IMAGE_TAG=$PROXY_IMAGE_TAG \
 	IMAGE=$IMAGE \
 	TAG=$TAG \
 	docker compose up -d
 
 else
-    deploy/deploy.sh $TARGET $SSH_PEM $IMAGE $TAG $DOCKER_USER $DOCKER_PASS
+    deploy/deploy.sh \
+	$TARGET \
+	$SSH_PEM \
+	$IMAGE \
+	$TAG \
+	$DOCKER_USER \
+	$DOCKER_PASS \
+	$PROXY_IMAGE \
+	$PROXY_IMAGE_TAG
 fi
 
 exit 0

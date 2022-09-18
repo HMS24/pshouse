@@ -8,11 +8,11 @@
 正所謂便宜治百病，價格是許多看房優先考慮的因素。尤其是最近成交的幾筆更是與代銷議價的參考。
 因此為了簡單化搜尋、排序功能，而快速產生了這個專案。
 
-使用 `Flask` 框架快速開發 API 及 `Grid.js` 實作做前端表格。資料由 [pshouse_schedule](https://github.com/HMS24/pshouse_schedule) 專案實作 EtLT 定期向內政部更新資料到 MySQL 資料庫。
+使用 `Flask` 框架快速開發 API 及 `Grid.js` 實作前端表格。資料由 [pshouse_schedule](https://github.com/HMS24/pshouse_schedule) 專案實作 EtLT 定期向內政部更新資料到 MySQL 資料庫。
 
-**限制 1: 目前僅擷取新北市全區 2 年內登錄的預售案。首頁則預設為新北市淡水區，無法跟改區域但可以 call API 抓其他區的資料**
+**限制 1: 目前僅擷取新北市全區 2 年內登錄的預售案。首頁預設為新北市淡水區，無法修改區域但可以 call API 抓其他區的資料。**
 
-**限制 2: 專案與 [pshouse_schedule](https://github.com/HMS24/pshouse_schedule) 的排程專案合作，目前共用 database 由 web application 負責 migrate database。缺點是得維護兩邊的 model 層並增加一些部署上的困擾🥲**
+**限制 2: 專案與 [pshouse_schedule](https://github.com/HMS24/pshouse_schedule) 的排程合作，共用 database 並由 web application 負責 migrate database。缺點是得維護兩邊的 model 層並增加一些部署上的困擾🥲**
     
 ## 如何使用
 ### 開發
@@ -30,7 +30,7 @@
     - `MYSQL_ROOT_PASSWORD` [mariadb container 使用](https://github.com/HMS24/pshouse/blob/master/compose.yml#L12)
     - `MYSQL_DATABASE` [mariadb container 使用](https://github.com/HMS24/pshouse/blob/master/compose.yml#L12)
     - `DATABASE_URI` 預設 sqlite
-    - `DATA_REVEAL_DAYS` 資料區間，預設 365
+    - `DATA_REVEAL_DAYS` 資料區間，預設 365 天
     - `TZ` container database 時區，使用 `Asia/Taipei`
 
 ### 本地部署
@@ -39,7 +39,7 @@
 
     $ cp .env.example .env
 
-建立映像檔並部署。預設映像檔名稱及版本: `local/psh:latest`。除了 build app 之外還有 proxy 的服務。
+建立映像檔並部署。預設映像檔名稱及版本: `local/psh:latest`。除了 build app 之外還會 build proxy。
 
     $ ./run.sh --target local
 
@@ -49,7 +49,7 @@
 
 ### 遠端部署
 
-建立映像檔上傳 docker hub 並部署，預設映像檔名稱:`$DOCKER_USER/$IMAGE:$TAG`。除了 build app 之外還有 proxy image。
+建立映像檔上傳 docker hub 並部署，預設映像檔名稱:`$DOCKER_USER/$IMAGE:$TAG`。除了 build app 之外還會 build proxy。
 
     $ ./run.sh --target $REMOTE_MACHINE \
                --ssh-pem $REMOTE_MACHINE_PEM_PATH \
@@ -91,7 +91,7 @@ Parameters
 │   │   ├── decorators.py
 │   │   └── errors.py
 │   ├── errors
-│   │   └── handlers.py     # 處理 api error response 或 回傳 error template
+│   │   └── handlers.py     # 處理 api error response 或 回傳 error html
 │   ├── main
 │   │   └── views.py        # 前端 route 及 view funcition
 │   ├── static           

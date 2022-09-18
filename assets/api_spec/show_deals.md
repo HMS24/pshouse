@@ -1,8 +1,8 @@
 **Show Deals**
 ----
-實價登錄列表 json 格式
+實價登錄列表
 
-- **URL:** `/apiv1/deals/`
+- **URL:** `/apiv1/deals`
 - **Method:** `GET` 
 - **URL Params:**
 
@@ -12,22 +12,22 @@
 
     - **Optional**
 
-        - city=[str]
+        - `city=[str]`
             default: `新北市`
-        - district=[str]
+        - `district=[str]`
             default: `淡水區`
-        - from_=[int]
+        - `from_=[int]`
             default: `距今一年前 timestamp`
-        - to_=[int]
+        - `to_=[int]`
             default: `datetime.now() timestamp`
-        - search=[str]
-        - start=[int]
+        - `search=[str]`
+        - `start=[int]`
             default: `0`
-        - length=[int]
+        - `length=[int]`
             default: `15`
-        - sort=[str] 
-            default: `-transaction_date`
-            sortable: `transaction_date`, `price` and `unit_price`
+        - `sort=[str]`
+            default: `-transaction_date` <br />
+            sortable: `transaction_date`, `price` and `unit_price` <br />
             order: `+` 代表 asc  `-` 代表 desc 
 
 - **Data Params**

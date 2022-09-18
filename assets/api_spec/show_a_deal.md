@@ -1,6 +1,6 @@
 **Show A Deal**
 ----
-單筆實價登錄 json 格式
+單筆實價登錄
 
 - **URL:** `/apiv1/deals/:id`
 - **Method:** `GET` 

@@ -113,7 +113,7 @@ Parameters
 ### (deals 實價登錄交易) 相關 endpoints
 
 - [Show deals](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : GET /apiv1/deals
-- [Show a deal](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : GET /apiv1/deals/2
+- [Show a deal](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : GET /apiv1/deals/:id
 
 ## 預計工作
 - 功能

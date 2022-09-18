@@ -8,7 +8,6 @@ from app.models import Deal
 with open("tests/mock/deals.json", "r", encoding="utf-8") as f:
     result = json.load(f)["result"]
     expected_deals = result["data"]
-    expected_total = result["total"]
 
 
 class DealTestCase(BaseTestCase):
@@ -29,9 +28,10 @@ class DealTestCase(BaseTestCase):
         db.session.commit()
 
     def test_get_deals_without_querystring(self):
+        DEFAULT_LIMIT = 10
         resp = self.client.get("/apiv1/deals")
         result = json.loads(resp.get_data(as_text=True))["result"]
 
         self.assertEqual(resp.status_code, 200)
-        self.assertEqual(len(result["data"]), expected_total)
+        self.assertEqual(len(result["data"]), DEFAULT_LIMIT)
         self.assertListEqual(result["data"], expected_deals)

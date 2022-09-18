@@ -14,20 +14,25 @@ listed_deal_resp_schema = ListedDealRespSchema()
 deal_resp_schema = DealRespSchema()
 deal_scema = DealSchema()
 
+DEFAULT_CITY = "新北市"
+DEFAULT_DISTRICT = "淡水區"
+DEFAULT_OFFSET = 0
+DEFAULT_LIMIT = 10
+
 
 @api.route("/deals", methods=["GET"])
 @querystring(deal_scema)
 @response(listed_deal_resp_schema)
 def all(args):
     """Retrieve all deals"""
-    city = args.get("city", "新北市")
-    district = args.get("district", "淡水區")
+    city = args.get("city", DEFAULT_CITY)
+    district = args.get("district", DEFAULT_DISTRICT)
     from_ = args.get("from_")
     to_ = args.get("to_")
     search = args.get("search")
     sort = args.get("sort")
-    start = args.get("start", -1)
-    length = args.get("length", -1)
+    start = args.get("start", DEFAULT_OFFSET)
+    length = args.get("length", DEFAULT_LIMIT)
 
     # 轉成 [("colname", "desc")]
     orders = _transform_sort_by_order_pair_list(sort) if sort else []

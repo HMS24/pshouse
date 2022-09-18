@@ -1,3 +1,3 @@
 FROM nginx
 
-COPY conf /etc/nginx/conf.d/default.conf
+COPY builds/proxy/conf /etc/nginx/conf.d/default.conf

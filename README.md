@@ -15,7 +15,7 @@
 **限制 2: 專案與 [pshouse_schedule](https://github.com/HMS24/pshouse_schedule) 的排程合作，共用 database 並由 web application 負責 migrate database。缺點是得維護兩邊的 model 層並增加一些部署上的困擾🥲**<br />
 
 <p align="center">
-<img src="./assets/demo.gif" alt="_" width="1080"/>
+<img src="./assets/demo.jpeg" alt="_" width="800"/>
 </p>
 
 ## 如何使用

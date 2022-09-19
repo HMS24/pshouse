@@ -1,4 +1,7 @@
-from app.models import Deal
+from app.models import (
+    Deal,
+    DealStatistics,
+)
 
 
 def get_deals_between_date(
@@ -46,4 +49,13 @@ def get_deals_between_date(
     return {
         "data": query.all(),
         "total": total,
+    }
+
+
+def get_deal_statistics():
+    query = DealStatistics.query
+
+    return {
+        "data": query.all(),
+        "total": query.count(),
     }

@@ -2,7 +2,10 @@ from datetime import datetime
 from marshmallow import post_load
 
 from app import ma
-from app.models import Deal
+from app.models import (
+    Deal,
+    DealStatistics,
+)
 from app.utils import generate_start_end_timestamp
 
 
@@ -70,3 +73,33 @@ class PageSchema(ma.Schema):
 
 class ListedDealRespSchema(ma.Schema):
     result = ma.Nested(PageSchema)
+
+
+class DealStatisticsSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = DealStatistics
+
+    # response
+    id = ma.auto_field()
+    city = ma.String()
+    district = ma.String()
+    year = ma.String()
+    month = ma.String()
+    room = ma.Integer()
+    build_name = ma.String()
+
+    avg_total_price = ma.Integer()
+    avg_house_price = ma.Integer()
+    avg_house_unit_price = ma.Float()
+
+    created_at = ma.DateTime()
+    updated_at = ma.DateTime()
+
+
+class DealStatisticsPageSchema(ma.Schema):
+    data = ma.List(ma.Nested(DealStatisticsSchema))
+    total = ma.Integer(dump_only=True)
+
+
+class ListedDealStatisticsSchema(ma.Schema):
+    result = ma.Nested(DealStatisticsPageSchema)

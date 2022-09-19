@@ -6,7 +6,7 @@ from app.stores import get_deal_statistics
 listed_deal_statistics_schema = ListedDealStatisticsSchema()
 
 
-@api.route("/deal_statistics", methods=["GET"])
+@api.route("/deal-statistics", methods=["GET"])
 @response(listed_deal_statistics_schema)
 def get_deal_statistics_():
     """Retrieve all deal statistics"""

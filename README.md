@@ -5,7 +5,7 @@
 ## 描述
 
 客製化實價登錄列表，快速瀏覽全貌。鍵入關鍵字能搜尋預售案，也能依照交易日、總價或單價做排序。
-另外還有統計淡水區 2022 年按月及按預售案分類的平均總價、平均房價及平均單價 [API](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deal_statistics.md)。
+另外還有統計淡水區 2022 年按月及按預售案分類的平均總價、平均房價及平均單價 [API](http://13.124.49.112/apiv1/deal-statistics)。
 
 正所謂便宜治百病，價格是許多看房優先考慮的因素。尤其是最近成交的幾筆更是與代銷議價的參考。
 因此為了簡單化搜尋、排序功能，而快速產生了這個專案。
@@ -115,13 +115,15 @@ Parameters
 ```
 
 ## API spec
-### (deals 實價登錄交易) 相關 endpoints
+**deal = 實價登錄交易**
 
-- [Show deals](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : [GET /apiv1/deals](http://13.124.49.112/apiv1/deals)
-- [Show a deal](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : [GET /apiv1/deals/:id](http://13.124.49.112/apiv1/deals/2)
+### deals 相關 endpoints
+
+- [Show deals](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : GET [/apiv1/deals](http://13.124.49.112/apiv1/deals)
+- [Show a deal](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : GET [/apiv1/deals/:id](http://13.124.49.112/apiv1/deals/2)
 
 ### deal statistics 相關 endpoints
-- [Show deal statistics](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deal_statistics.md) : [GET /apiv1/deal-statistics](http://13.124.49.112/apiv1/deal-statistics)
+- [Show deal statistics](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deal_statistics.md) : GET [/apiv1/deal-statistics](http://13.124.49.112/apiv1/deal-statistics)
 
 ## 預計工作
 - 功能

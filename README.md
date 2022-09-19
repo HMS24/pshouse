@@ -119,7 +119,7 @@ Parameters
 
 ### deals 相關 endpoints
 
-- [Show deals](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : GET [/apiv1/deals?start=0&length=15](http://13.124.49.112/apiv1/deals)
+- [Show deals](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : GET [/apiv1/deals](http://13.124.49.112/apiv1/deals)
 - [Show a deal](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : GET [/apiv1/deals/:id](http://13.124.49.112/apiv1/deals/2)
 
 ### deal statistics 相關 endpoints

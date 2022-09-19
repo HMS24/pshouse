@@ -23,7 +23,7 @@ DEFAULT_LIMIT = 10
 @api.route("/deals", methods=["GET"])
 @querystring(deal_scema)
 @response(listed_deal_resp_schema)
-def all(args):
+def get_deals(args):
     """Retrieve all deals"""
     city = args.get("city", DEFAULT_CITY)
     district = args.get("district", DEFAULT_DISTRICT)
@@ -54,7 +54,7 @@ def all(args):
 
 @api.route("/deals/<int:id>", methods=["GET"])
 @response(deal_resp_schema)
-def get(id):
+def get_deal_by_id(id):
     """Retrieve a deal by id"""
     return Deal.query.get(id) \
         or abort(404, f"Deal id {id} doesn't exist.")

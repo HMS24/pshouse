@@ -17,6 +17,8 @@ services:
     image: $DOCKER_USER/$IMAGE:$TAG
     container_name: app
     restart: always
+    ports:
+      - 80:80
     env_file: .env
     entrypoint: ./boot.sh
     networks:
@@ -24,17 +26,6 @@ services:
       - frontend_net
     depends_on:
       - db
-
-  proxy:
-    image: $DOCKER_USER/$PROXY_IMAGE:$PROXY_IMAGE_TAG
-    container_name: proxy
-    restart: always
-    ports:
-      - 80:80
-    depends_on:
-      - app
-    networks:
-      - frontend_net
 
 volumes:
   db_data:

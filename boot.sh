@@ -10,4 +10,4 @@ while true; do
     sleep 5
 done
 
-exec gunicorn -b :5000 --access-logfile - --error-logfile - pshouse:app
+exec gunicorn -b :80 --access-logfile - --error-logfile - pshouse:app

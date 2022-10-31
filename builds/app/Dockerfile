@@ -20,4 +20,3 @@ COPY --chown=admin:admin pshouse.py config.py boot.sh ./
 RUN chmod +x boot.sh
 
 USER admin
-EXPOSE 5000

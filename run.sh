@@ -9,8 +9,6 @@ DOCKER_USER="local"
 DOCKER_PASS=""
 IMAGE="psh"
 TAG="latest"
-PROXY_IMAGE="proxy"
-PROXY_IMAGE_TAG="latest"
 
 while [[ "$#" -gt 0 ]]; do
 	case $1 in
@@ -51,7 +49,6 @@ echo "** Building image ****************"
 echo "**********************************"
 
 builds/build.sh "app" $IMAGE $TAG
-builds/build.sh "proxy" $PROXY_IMAGE $PROXY_IMAGE_TAG
 
 # test
 echo "**********************************"
@@ -72,13 +69,6 @@ $TAG \
 $DOCKER_USER \
 $DOCKER_PASS
 
-builds/push.sh \
-$TARGET \
-$PROXY_IMAGE \
-$PROXY_IMAGE_TAG \
-$DOCKER_USER \
-$DOCKER_PASS
-
 # deploy
 echo "**********************************"
 echo "** Deploying *********************"
@@ -88,8 +78,6 @@ echo "Deploy to $TARGET"
 
 if [ "$TARGET" = "local" ]; then
 	DOCKER_USER=$DOCKER_USER \
-	PROXY_IMAGE=$PROXY_IMAGE \
-	PROXY_IMAGE_TAG=$PROXY_IMAGE_TAG \
 	IMAGE=$IMAGE \
 	TAG=$TAG \
 	docker compose up -d
@@ -102,8 +90,6 @@ else
 	$TAG \
 	$DOCKER_USER \
 	$DOCKER_PASS \
-	$PROXY_IMAGE \
-	$PROXY_IMAGE_TAG
 fi
 
 exit 0

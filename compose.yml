@@ -17,8 +17,11 @@ services:
     image: $DOCKER_USER/$IMAGE:$TAG
     container_name: app
     restart: always
+    volumes:
+      - /etc/pki/tls/private:/home/admin/tls/private
+      - /etc/pki/tls/certs:/home/admin/tls/certs
     ports:
-      - 80:80
+      - 443:443
     env_file: .env
     entrypoint: ./boot.sh
     networks:

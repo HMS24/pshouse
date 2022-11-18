@@ -10,4 +10,9 @@ while true; do
     sleep 5
 done
 
-exec gunicorn -b :443 --access-logfile - --error-logfile - --keyfile ./tls/private/electricbanana.key --certfile ./tls/certs/electricbanana.crt --ca-certs ./tls/certs/electricbanana.ca-bundle pshouse:app
+exec gunicorn -b :443 --access-logfile - \
+--error-logfile - \
+--keyfile ./tls/private/electricbanana.key \
+--certfile ./tls/certs/electricbanana.crt \
+--ca-certs ./tls/certs/electricbanana.ca-bundle \
+pshouse:app

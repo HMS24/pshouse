@@ -89,7 +89,7 @@ else
 	$IMAGE \
 	$TAG \
 	$DOCKER_USER \
-	$DOCKER_PASS \
+	$DOCKER_PASS
 fi
 
 exit 0

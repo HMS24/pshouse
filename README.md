@@ -1,4 +1,4 @@
-# pshouse (pre-sale house)
+# pre-sale house
 
 淡水區預售屋實價登錄列表</br>
 簡化網頁瀏覽操作流程，以分頁表格呈現資料，簡化搜尋及排序。
@@ -22,8 +22,8 @@
 建立並部署
 
     $ ./run.sh --target local
-
-預設映像檔名稱及版本: `local/psh:latest`。
+    
+    預設映像檔名稱及版本: `local/psh:latest`。
 
 ## API
 

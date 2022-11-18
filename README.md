@@ -27,9 +27,9 @@
 
 ## API
 
-- [取得列表](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : GET [/apiv1/deals](http://13.124.49.112/apiv1/deals)
-- [取得一筆資料](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : GET [/apiv1/deals/:id](http://13.124.49.112/apiv1/deals/2)
-- [取得統計資料](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deal_statistics.md) : GET [/apiv1/deal-statistics](http://13.124.49.112/apiv1/deal-statistics)
+- [取得列表](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : `GET` [/apiv1/deals](http://13.124.49.112/apiv1/deals)
+- [取得一筆資料](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : `GET` [/apiv1/deals/:id](http://13.124.49.112/apiv1/deals/2)
+- [取得統計資料](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deal_statistics.md) : `GET` [/apiv1/deal-statistics](http://13.124.49.112/apiv1/deal-statistics)
 
 ## 程式碼架構
 

@@ -3,7 +3,7 @@
 淡水區預售屋實價登錄列表</br>
 簡化網頁瀏覽操作流程，以分頁表格呈現資料，簡化搜尋及排序。
 </br>
-[作品網站](http://13.124.49.112/)
+[作品網站](https://www.electricbanana.info/)
 
 ## 描述
 
@@ -27,9 +27,9 @@
 
 ## API
 
-- [取得列表](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : `GET` [/apiv1/deals](http://13.124.49.112/apiv1/deals)
-- [取得一筆資料](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : `GET` [/apiv1/deals/:id](http://13.124.49.112/apiv1/deals/2)
-- [取得統計資料](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deal_statistics.md) : `GET` [/apiv1/deal-statistics](http://13.124.49.112/apiv1/deal-statistics)
+- [取得列表](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : `GET` [/apiv1/deals](https://www.electricbanana.info/apiv1/deals)
+- [取得一筆資料](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deals.md) : `GET` [/apiv1/deals/:id](https://www.electricbanana.info/apiv1/deals/2)
+- [取得統計資料](https://github.com/HMS24/pshouse/blob/master/assets/api_spec/show_deal_statistics.md) : `GET` [/apiv1/deal-statistics](https://www.electricbanana.info/apiv1/deal-statistics)
 
 ## 程式碼架構
 
